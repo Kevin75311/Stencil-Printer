@@ -1,0 +1,31 @@
+
+
+<!DOCTYPE html> 
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" charset="utf-8">
+  <title>Heater Control</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box;}
+    body { justify-content: center; align-items: center; width: 100%; height: 100vh; background: #232d42;}
+    
+  </style>
+</head>
+<body>
+	
+	<script>
+		const arc = document.querySelector("svg path");
+		const temperature = document.querySelector("#temperature");
+		const range = document.querySelector("#range");
+		range.addEventListener('change', (e) => {
+			temperature.textContent = e.target.value;
+
+			const arc_length = arc.getTotalLength();
+			const step = arc_length / (range.max - range.min);
+			const value = (e.target.value - range.min) * step;
+			arc.style.strokeDasharray = `${value} ${arc_length - value}`;
+		})
+	</script>
+</body>
+</html>
